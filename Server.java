@@ -19,10 +19,15 @@ public class Server {
 		// I/O buffers:
 		BufferedReader in_socket = new BufferedReader(new InputStreamReader (socket.getInputStream()));
 		PrintWriter out_socket = new PrintWriter(new OutputStreamWriter (socket.getOutputStream()), true);
+		int num=(int)(Math.random()*10+1);
+		String client_guess;
 		
-		out_socket.println("Welcome!"); // send "Welcome" to the Client
-		String message = in_socket.readLine();
-		System.out.println("Client says: " + message); // display Client's message in the console
+		do{
+		out_socket.print("Guess a number in [1,10]"); // Ask the Client 
+		client_guess = in_socket.readLine();
+		}while(! (Integer.parseInt(client_guess)== num));
+		
+		System.out.println("You got it!!!");
 		
 		socket.close();
 		System.out.println("Socket is closed.");

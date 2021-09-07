@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Client {
 
@@ -16,10 +17,14 @@ public class Client {
 		// I/O streams
 		BufferedReader in_socket = new BufferedReader (new InputStreamReader (socket.getInputStream()));
 		PrintWriter out_socket = new PrintWriter (new OutputStreamWriter (socket.getOutputStream()), true);
-		
-		String message = in_socket.readLine();
-		System.out.println("Server says: " + message);
-		out_socket.println("Thanks!");
+		Scanner keyboard= new Scanner(System.in);
+        String user_num;
+        while(in_socket.readLine().startsWith("Guess")){
+            System.out.println("server says : Guess a number in [1,10]");
+            user_num=keyboard.nextLine();// prompt the user to enter an integer
+            out_socket.println(user_num);// send the user guess to the server
+
+        }
 		
 		socket.close();
 		System.out.println("Socket closed.");
